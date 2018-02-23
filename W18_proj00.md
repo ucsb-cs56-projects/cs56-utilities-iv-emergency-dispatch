@@ -1,6 +1,6 @@
-#W18_proj00.md
+# W18_proj00.md
 
-##Description:
+## Description:
 
 Interactive map showing emergencies dispatched by SB County Fire Department with real time updates.
 ##Current User Stories:
