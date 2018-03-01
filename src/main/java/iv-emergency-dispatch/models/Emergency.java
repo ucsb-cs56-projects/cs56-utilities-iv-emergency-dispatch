@@ -8,8 +8,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="locations")
-public class Location {
+@Document(collection="emergencies")
+public class Emergency {
     @Id
     private String id;
 
@@ -26,11 +26,11 @@ public class Location {
     @NotBlank
     private String time;
 
-    public Location() {
+    public Emergency() {
         super();
     }
 
-    public Location(String description) {
+    public Emergency(String description) {
         this.description = description;
     }
 
@@ -77,7 +77,7 @@ public class Location {
     @Override
     public String toString() {
         return String.format(
-                "Location[id=%s, description='%s', category='%s', address='%s', time='%s']",
+                "Emergency[id=%s, description='%s', category='%s', address='%s', time='%s']",
                 id, description, category, address, time);
     }
 }

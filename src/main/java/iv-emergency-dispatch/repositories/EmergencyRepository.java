@@ -1,10 +1,10 @@
 package ivemergencydispatch.repositories;
 
-import ivemergencydispatch.models.Location;
+import ivemergencydispatch.models.Emergency;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LocationRepository extends MongoRepository<Emergency, String> {
+public interface EmergencyRepository extends MongoRepository<Emergency, String> {
 
 }
