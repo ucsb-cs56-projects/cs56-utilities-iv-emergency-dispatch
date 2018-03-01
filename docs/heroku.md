@@ -1,7 +1,7 @@
 # Heroku
 In order for users to be able to use this project without downloading the repo and building it locally, we decided to use Heroku to host our application. Login information can be found in [credentials][credentialsLink].
 
-[credentialsLink]: heroku.md
+[credentialsLink]: credentials.md
 
 ## About Heroku
 From Wikipedia
