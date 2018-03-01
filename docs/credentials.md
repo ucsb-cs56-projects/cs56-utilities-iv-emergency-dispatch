@@ -4,12 +4,15 @@ This project uses many different web services that you may need to access while 
 
 ## Gmail
 email: ivemergencydispatch@gmail.com
+
 password: ucsbcs56
 
-## Heroku (host)
+## Heroku
 email: ivemergencydispatch@gmail.com
+
 password: ucsbcs56!
 
-## mLab (database)
+## mLab
 username: ivemergencydispatch
+
 password: ucsbcs56
