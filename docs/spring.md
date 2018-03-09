@@ -1,0 +1,7 @@
+# Spring Framework
+To make a java web app, we decided to use Java Spring Framework to implement our models, views, and controllers.
+
+## About Spring Framework
+(From Wikipedia)
+
+> The Spring Framework is an application framework and inversion of control container for the Java platform. The framework's core features can be used by any Java application, but there are extensions for building web applications on top of the Java EE (Enterprise Edition) platform. Although the framework does not impose any specific programming model, it has become popular in the Java community as an addition to, or even replacement for the Enterprise JavaBeans (EJB) model. The Spring Framework is open source.

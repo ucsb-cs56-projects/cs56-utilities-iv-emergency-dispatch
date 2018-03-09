@@ -3,7 +3,7 @@
 ## Description
 
 Interactive map showing emergencies dispatched by SB County Fire Department with real time updates.
-##Current User Stories
+## Current User Stories
 There are currently no user stories available because this is a new project that has not been implemented.
 
 ## Does It Run?
