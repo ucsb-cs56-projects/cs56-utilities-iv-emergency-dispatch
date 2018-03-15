@@ -1,4 +1,4 @@
-package ivemergencydispatch.models;
+package ivemergencydispatch.model;
 
 import java.util.Date;
 import javax.validation.constraints.Size;
@@ -10,36 +10,29 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="emergencies")
 public class Emergency {
-    @Id
-    private String id;
-
+  
     @NotBlank
-    @Indexed(unique=true)
+    @Indexed
+    private Date time;
+    
+    @NotBlank
     private String description;
 
     @NotBlank
-    private String category;
-
-    @NotBlank
     private String address;
-
+    
     @NotBlank
-    private String time;
+    private String latlng;
+
 
     public Emergency() {
-        super();
     }
 
-    public Emergency(String description) {
+    public Emergency(Date time, String address, String description, String latlng) {
+        this.time = time;
         this.description = description;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.address = address;
+        this.latlng = latlng;
     }
 
     public String getDescription() {
@@ -50,14 +43,6 @@ public class Emergency {
         this.description = description;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -66,18 +51,26 @@ public class Emergency {
         this.address = address;
     }
 
-    public String getTime() {
+    public String getLatlng() {
+        return latlng;
+    }
+
+    public void setLatlng(String latlng) {
+        this.latlng = latlng;
+    }
+
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Emergency[id=%s, description='%s', category='%s', address='%s', time='%s']",
-                id, description, category, address, time);
+                "Emergency[time='%s', address='%s', description='%s', latlng='%s']",
+                time, address, description, latlng);
     }
 }

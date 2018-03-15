@@ -1,6 +1,6 @@
-package ivemergencydispatch.repositories;
+package ivemergencydispatch.repository;
 
-import ivemergencydispatch.models.Emergency;
+import ivemergencydispatch.model.Emergency;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
