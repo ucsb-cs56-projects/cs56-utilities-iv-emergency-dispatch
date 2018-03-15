@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by david on 2014-09-16.
- */
 @Controller
 public class TwitterController {
 
@@ -24,12 +21,5 @@ public class TwitterController {
     @Inject
     public TwitterController(Twitter twitter) {
         this.twitter = twitter;
-    }
-
-    @RequestMapping("/{handle}/friends")
-    @ResponseBody
-    public CursoredList<TwitterProfile> findFriends(@PathVariable("handle") String handle) {
-        // return friends using the Spring Social Twitter framework:
-        return twitter.friendOperations().getFriends(handle);
     }
 }

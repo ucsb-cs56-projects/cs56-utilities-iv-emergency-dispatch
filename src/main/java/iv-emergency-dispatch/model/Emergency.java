@@ -1,4 +1,4 @@
-package ivemergencydispatch.models;
+package ivemergencydispatch.model;
 
 import java.util.Date;
 import javax.validation.constraints.Size;
@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="emergencies")
 public class Emergency {
     @Id
-    private String id;
+    private Long id;
 
     @NotBlank
     @Indexed(unique=true)
@@ -24,21 +24,24 @@ public class Emergency {
     private String address;
 
     @NotBlank
-    private String time;
+    private Date time;
 
     public Emergency() {
-        super();
     }
 
-    public Emergency(String description) {
+    public Emergency(Long id, String description, String category, String address, Date time) {
+        this.id = id;
         this.description = description;
+        this.category = category;
+        this.address = address;
+        this.time = time;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,11 +69,11 @@ public class Emergency {
         this.address = address;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 

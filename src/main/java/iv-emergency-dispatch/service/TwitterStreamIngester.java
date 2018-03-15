@@ -1,29 +1,24 @@
 package ivemergencydispatch.service;
 
-// import com.kaviddiss.keywords.domain.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.social.twitter.api.*;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-/**
- * Created by david on 2014-09-16.
- */
 @Service
 public class TwitterStreamIngester implements StreamListener {
 
     @Inject
     private Twitter twitter;
+    @Inject
+    private EmergencyService emergencyService;
     @Inject
     private ThreadPoolTaskExecutor taskExecutor;
     @Value("${twitterProcessing.enabled}")
@@ -34,14 +29,17 @@ public class TwitterStreamIngester implements StreamListener {
     public void run() {
         List<StreamListener> listeners = new ArrayList<>();
         listeners.add(this);
-        twitter.streamingOperations().sample(listeners);
+        FilterStreamParameters userParams = new FilterStreamParameters();
+        // Follow @SBCFireDispatch by adding their twitter user id to userParams
+        userParams.follow(973338933533720577l);
+        twitter.streamingOperations().filter(userParams, listeners);
     }
 
     @PostConstruct
     public void afterPropertiesSet() throws Exception {
         if (processingEnabled) {
             for (int i = 0; i < taskExecutor.getMaxPoolSize(); i++) {
-                taskExecutor.execute(new TweetProcessor(queue));
+                taskExecutor.execute(new TweetProcessor(emergencyService, queue));
             }
 
             run();
