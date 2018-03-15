@@ -16,3 +16,8 @@ password: ucsbcs56!
 username: ivemergencydispatch
 
 password: ucsbcs56
+
+## mLab
+username: ucsbcs56proj
+
+password: ucsbcs56
