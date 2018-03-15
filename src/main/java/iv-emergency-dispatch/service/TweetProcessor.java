@@ -30,16 +30,21 @@ public class TweetProcessor implements Runnable {
     }
 
     private void processTweet(Tweet tweetEntity) {
-        String text = tweetEntity.getText();
-        
-        Long id = tweetEntity.getId();
-        String category = tweetEntity.getText();
-        String description = tweetEntity.getText();
-        String address = tweetEntity.getText();
+        String id = tweetEntity.getIdStr();
         Date time = tweetEntity.getCreatedAt();
 
+        String text = tweetEntity.getText();
+        // sample text : Page 6477 El Colegio Rd ,Isla Vista *Medical Emergency *34416815 -119853131 *FSBC180003588*ME17,RA17
+        // split text into array, separating text on *
+        String[] elements = text.split(" \\*");
         
-        Emergency newEmergency = new Emergency(id, description, category, address, time);
+        // Address is first element of split array minus "Page" string
+        String address = elements[0].substring(5);
+        
+        // description is second element of split array
+        String description = elements[1];
+        
+        Emergency newEmergency = new Emergency(time, address, description);
         emergencyService.createEmergency(newEmergency);
         System.out.println(newEmergency.toString());
     }

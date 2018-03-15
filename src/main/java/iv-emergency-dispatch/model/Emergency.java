@@ -10,39 +10,25 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection="emergencies")
 public class Emergency {
-    @Id
-    private Long id;
-
+  
     @NotBlank
-    @Indexed(unique=true)
+    @Indexed
+    private Date time;
+    
+    @NotBlank
     private String description;
-
-    @NotBlank
-    private String category;
 
     @NotBlank
     private String address;
 
-    @NotBlank
-    private Date time;
 
     public Emergency() {
     }
 
-    public Emergency(Long id, String description, String category, String address, Date time) {
-        this.id = id;
-        this.description = description;
-        this.category = category;
-        this.address = address;
+    public Emergency(Date time, String address, String description) {
         this.time = time;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.description = description;
+        this.address = address;
     }
 
     public String getDescription() {
@@ -51,14 +37,6 @@ public class Emergency {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getAddress() {
@@ -80,7 +58,7 @@ public class Emergency {
     @Override
     public String toString() {
         return String.format(
-                "Emergency[id=%s, description='%s', category='%s', address='%s', time='%s']",
-                id, description, category, address, time);
+                "Emergency[time='%s', address='%s', description='%s']",
+                time, address, description);
     }
 }
