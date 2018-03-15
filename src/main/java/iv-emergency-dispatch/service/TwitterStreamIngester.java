@@ -33,7 +33,7 @@ public class TwitterStreamIngester implements StreamListener {
         listeners.add(this);
         FilterStreamParameters userParams = new FilterStreamParameters();
         // Follow @SBCFireDispatch by adding their twitter user id to userParams
-        userParams.follow(973338933533720577l);
+        userParams.follow(22822722);
         twitter.streamingOperations().filter(userParams, listeners);
     }
 

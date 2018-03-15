@@ -30,8 +30,7 @@ public class GeocodingService {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String lat = gson.toJson(result[0].geometry.location.lat);
         String lng = gson.toJson(result[0].geometry.location.lng);
-        // System.out.println(gson.toJson(result[0].geometry.location));
-        // System.out.println("[" + lat + ", " + lng + "]");
+
         return("[" + lat + ", " + lng + "]");
       } catch (Exception e) {
         req.awaitIgnoreError();

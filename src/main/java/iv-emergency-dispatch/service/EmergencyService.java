@@ -13,6 +13,7 @@ public class EmergencyService {
     private EmergencyRepository emergencyRepository;
 
     public Emergency createEmergency(Emergency emergency) {
+      
         // Save emergency object to our database in mLab
         return emergencyRepository.save(emergency);
     }
