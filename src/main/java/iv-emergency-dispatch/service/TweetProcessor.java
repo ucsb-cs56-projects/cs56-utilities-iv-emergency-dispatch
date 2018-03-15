@@ -30,11 +30,15 @@ public class TweetProcessor implements Runnable {
     }
 
     private void processTweet(Tweet tweetEntity) {
-        String id = tweetEntity.getIdStr();
-        Date time = tweetEntity.getCreatedAt();
-
+        // tweets from SBCFireDispatch are in form:
+        // Page 6477 El Colegio Rd ,Isla Vista *Medical Emergency *34416815 -119853131 *FSBC180003588*ME17,RA17
         String text = tweetEntity.getText();
-        // sample text : Page 6477 El Colegio Rd ,Isla Vista *Medical Emergency *34416815 -119853131 *FSBC180003588*ME17,RA17
+        
+        // only add process if tweet has address in IV
+        if(!text.toLowerCase().contains("isla vista")){
+          return;
+        }
+        
         // split text into array, separating text on *
         String[] elements = text.split(" \\*");
         
@@ -44,6 +48,11 @@ public class TweetProcessor implements Runnable {
         // description is second element of split array
         String description = elements[1];
         
+        // get tweet id and time it was tweeted
+        String id = tweetEntity.getIdStr();
+        Date time = tweetEntity.getCreatedAt();
+        
+        // create Emergency object and save to database
         Emergency newEmergency = new Emergency(time, address, description);
         emergencyService.createEmergency(newEmergency);
         System.out.println(newEmergency.toString());
