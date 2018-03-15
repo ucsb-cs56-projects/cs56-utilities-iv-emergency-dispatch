@@ -20,6 +20,8 @@ public class TwitterStreamIngester implements StreamListener {
     @Inject
     private EmergencyService emergencyService;
     @Inject
+    private GeocodingService geocodingService;
+    @Inject
     private ThreadPoolTaskExecutor taskExecutor;
     @Value("${twitterProcessing.enabled}")
     private boolean processingEnabled;
@@ -39,7 +41,7 @@ public class TwitterStreamIngester implements StreamListener {
     public void afterPropertiesSet() throws Exception {
         if (processingEnabled) {
             for (int i = 0; i < taskExecutor.getMaxPoolSize(); i++) {
-                taskExecutor.execute(new TweetProcessor(emergencyService, queue));
+                taskExecutor.execute(new TweetProcessor(emergencyService, geocodingService, queue));
             }
 
             run();

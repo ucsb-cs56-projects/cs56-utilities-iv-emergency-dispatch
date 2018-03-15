@@ -3,17 +3,19 @@ package ivemergencydispatch.service;
 import ivemergencydispatch.model.Emergency;
 import ivemergencydispatch.repository.EmergencyRepository;
 import org.springframework.social.twitter.api.Tweet;
-
+import com.google.maps.model.LatLng;
 import java.util.Date;
 import java.util.concurrent.BlockingQueue;
 
 public class TweetProcessor implements Runnable {
     private EmergencyService emergencyService;
+    private GeocodingService geocodingService;
 
     private final BlockingQueue<Tweet> queue;
 
-    public TweetProcessor(EmergencyService emergencyService, BlockingQueue<Tweet> queue) {
+    public TweetProcessor(EmergencyService emergencyService, GeocodingService geocodingService, BlockingQueue<Tweet> queue) {
         this.emergencyService = emergencyService;
+        this.geocodingService = geocodingService;
         this.queue = queue;
     }
 
@@ -43,7 +45,7 @@ public class TweetProcessor implements Runnable {
         String[] elements = text.split(" \\*");
         
         // Address is first element of split array minus "Page" string
-        String address = elements[0].substring(5);
+        String address = elements[0].substring(5).replace(" ,Isla Vista", "");
         
         // description is second element of split array
         String description = elements[1];
@@ -52,9 +54,16 @@ public class TweetProcessor implements Runnable {
         String id = tweetEntity.getIdStr();
         Date time = tweetEntity.getCreatedAt();
         
-        // create Emergency object and save to database
-        Emergency newEmergency = new Emergency(time, address, description);
-        emergencyService.createEmergency(newEmergency);
-        System.out.println(newEmergency.toString());
+        try {
+          // get latlng coordinates of address using Google Maps API
+          String latlng = geocodingService.getCoords(address);
+          
+          // create Emergency object and save to database
+          Emergency newEmergency = new Emergency(time, address, description, latlng);
+          emergencyService.createEmergency(newEmergency);
+          System.out.println(newEmergency.toString());
+        } catch( Exception e) {
+          System.out.println(e);
+        }        
     }
 }

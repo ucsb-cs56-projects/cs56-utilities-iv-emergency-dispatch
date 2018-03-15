@@ -20,15 +20,19 @@ public class Emergency {
 
     @NotBlank
     private String address;
+    
+    @NotBlank
+    private String latlng;
 
 
     public Emergency() {
     }
 
-    public Emergency(Date time, String address, String description) {
+    public Emergency(Date time, String address, String description, String latlng) {
         this.time = time;
         this.description = description;
         this.address = address;
+        this.latlng = latlng;
     }
 
     public String getDescription() {
@@ -47,6 +51,14 @@ public class Emergency {
         this.address = address;
     }
 
+    public String getLatlng() {
+        return latlng;
+    }
+
+    public void setLatlng(String latlng) {
+        this.latlng = latlng;
+    }
+
     public Date getTime() {
         return time;
     }
@@ -58,7 +70,7 @@ public class Emergency {
     @Override
     public String toString() {
         return String.format(
-                "Emergency[time='%s', address='%s', description='%s']",
-                time, address, description);
+                "Emergency[time='%s', address='%s', description='%s', latlng='%s']",
+                time, address, description, latlng);
     }
 }
